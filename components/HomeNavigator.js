@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import FrontPage from "./FrontPage";
 import NoteForm from "./NoteForm";
@@ -9,13 +9,15 @@ const Tab = createMaterialTopTabNavigator();
 
 const HomeNavigator = () => {
   return (
-    <NavigationContainer>
-      <StatusBar />
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={FrontPage} />
-        <Tab.Screen name="New Note" component={NoteForm} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <StatusBar />
+        <Tab.Navigator>
+          <Tab.Screen name="Home" children={() => <FrontPage />} />
+          <Tab.Screen name="New Note" children={() => <NoteForm />} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </>
   );
 };
 

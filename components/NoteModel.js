@@ -2,10 +2,11 @@ import React from "react";
 import { Text, StyleSheet, View } from "react-native";
 import TitleBox from "./TitleBox";
 
+
 const NoteModel = ({ item, handleDelete }) => {
   return (
     <View style={styles.box}>
-      <TitleBox item={item} handleDelete={handleDelete}/>
+      <TitleBox item={item} handleDelete={handleDelete} />
       <Text style={styles.text} numberOfLines={6} ellipsizeMode="tail">
         {item.content}
       </Text>

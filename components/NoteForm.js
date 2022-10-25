@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { TextInput, StyleSheet, View, Text } from "react-native";
 import Layout from "./Layout";
 import Clicker from "./Clicker";
 import { createNote } from "../api";
+import UserContext from "../context/UserContext";
 
 const NoteForm = () => {
+  const { user } = useContext(UserContext);
+  const email = user.email
   const [note, setNote] = useState({
     name: "None",
     content: "",
     group: "Other",
+    email,
   });
 
   const handleSubmit = async () => {
     await createNote(note);
+    handleReset();
   };
 
   const handleReset = () => {
@@ -20,6 +25,7 @@ const NoteForm = () => {
       name: "None",
       content: "",
       group: "Other",
+      email,
     });
   };
 
@@ -42,7 +48,7 @@ const NoteForm = () => {
         placeholder="Note content"
       />
       <TextInput
-        onChangeText={(text) => handleChange("group", value)}
+        onChangeText={(text) => handleChange("group", text)}
         value={note.group}
         style={styles.input}
       />

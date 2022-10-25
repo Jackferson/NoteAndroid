@@ -1,7 +1,7 @@
-const core = "http://192.168.0.5:3000/";
+const core = "http://192.168.0.7:3000/";
 
-export const getAllNotes = async () => {
-  const res = await fetch(core);
+export const getAllNotes = async (user) => {
+  const res = await fetch(`${core}note/${user}`)
   return res.json();
 };
 

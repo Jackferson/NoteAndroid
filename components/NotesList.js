@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import React, { useEffect, useState, useContext } from "react";
+import { FlatList, RefreshControl } from "react-native";
 import { getAllNotes, deleteNote } from "../api";
 import NoteModel from "./NoteModel";
+import UserContext from "../context/UserContext";
 
 const NotesList = () => {
   const [notes, setNotes] = useState([]);
+  const [refreshing, setRefreshing] = useState([]);
+  const { user } = useContext(UserContext);
+  const email = user.email;
 
   const loadNotes = async () => {
-    console.log(user)
-    const data = await getAllNotes();
+    const data = await getAllNotes(email);
     setNotes(data);
   };
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await loadNotes();
+    setRefreshing(false);
+  }, []);
 
   const handleDelete = async (id) => {
     await deleteNote(id);
@@ -23,14 +32,21 @@ const NotesList = () => {
   };
 
   useEffect(() => {
-    loadNotes();
-  }, []);
+    user ? loadNotes() : null;
+  }, [user]);
 
   return (
     <FlatList
       data={notes}
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
+      refreshControl={
+        <RefreshControl
+          onRefresh={onRefresh}
+          colors={["#f00"]}
+          refreshing={refreshing}
+        />
+      }
     ></FlatList>
   );
 };
