@@ -20,7 +20,7 @@ export default function Logger() {
     if (res?.type === "success") {
       const accessToken = res.authentication.accessToken;
       getUserData(accessToken);
-      // setLoading(true);
+      setLoading(true);
     }
   }, [res]);
 

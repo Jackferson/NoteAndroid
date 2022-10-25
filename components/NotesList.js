@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import { FlatList, RefreshControl } from "react-native";
 import { getAllNotes, deleteNote } from "../api";
 import NoteModel from "./NoteModel";
@@ -6,7 +6,7 @@ import UserContext from "../context/UserContext";
 
 const NotesList = () => {
   const [notes, setNotes] = useState([]);
-  const [refreshing, setRefreshing] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   const { user } = useContext(UserContext);
   const email = user.email;
 
@@ -15,7 +15,7 @@ const NotesList = () => {
     setNotes(data);
   };
 
-  const onRefresh = React.useCallback(async () => {
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await loadNotes();
     setRefreshing(false);
