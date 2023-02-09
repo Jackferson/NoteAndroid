@@ -11,9 +11,9 @@ export default function Logger() {
 
   const [req, res, promptAsync] = Google.useAuthRequest({
     expoClientId:
-      "1099020540551-phgkkelm5od5ds8js7i12kf4703v52pt.apps.googleusercontent.com",
+      "Insert Key",
     webClientId:
-      "1099020540551-54j4flklb6gg0pps04rdq099rde4bohc.apps.googleusercontent.com",
+      "Insert Key",
   });
 
   useEffect(() => {
